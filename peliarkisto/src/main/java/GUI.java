@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.JList;
 import java.util.ArrayList;
 import static java.util.Collections.list;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -64,7 +65,6 @@ public class GUI extends JFrame implements ActionListener {
                 jarjestelmaKentta.setEnabled(true);
                 
                 int indexi = arkisto.getSelectedIndex();
-                //Jos listassa on pelejä sitten vasta runnataan metodi
                 if(indexi >= 0) {
                     Peli p = pelit.get(indexi);
                     nimiKentta.setText(p.getNimi());
@@ -93,11 +93,23 @@ public class GUI extends JFrame implements ActionListener {
         tallenna.addActionListener(this);
         sulje.addActionListener(this);
         
-        //TILA NAPIT!
+        //PELIN TILA NAPIT! TÄSSÄ ON MAJOR BUGI, VOI JOHTUA LAYOUTISTA. KOKEILE WINDOWS
         JRadioButton aloittamattaNappi = new JRadioButton("Aloitettu");
         JRadioButton keskenNappi = new JRadioButton("Kesken");
         JRadioButton pelattuNappi = new JRadioButton("Pelattu läpi");
         JCheckBox pelaan = new JCheckBox("Pelaan nyt");
+        ButtonGroup ryhmaTila = new ButtonGroup();
+        ryhmaTila.add(aloittamattaNappi);
+        ryhmaTila.add(keskenNappi);
+        ryhmaTila.add(pelattuNappi);
+        ryhmaTila.add(pelaan);
+        
+        aloittamattaNappi.setBounds(185, 125, 300, 20);
+        keskenNappi.setBounds(300, 125, 300, 20);
+        pelattuNappi.setBounds(300, 150, 200, 20);
+        pelaan.setBounds(185, 150, 200, 20);
+        
+        
         
         
         lisaaPeli = new JButton("Lisää peli");
@@ -108,9 +120,7 @@ public class GUI extends JFrame implements ActionListener {
         lisaaPeli.setBounds(420, 310, 200, 21);
         muokkaaPeli.setBounds(190, 310, 200, 21);
         
-        aloittamattaNappi.setBounds(185, 125, 300, 20);
-        keskenNappi.setBounds(300, 125, 300, 20);
-
+        
         // Tekstit! 
         JLabel nimiTeksti = new JLabel();
         JLabel jarjestelmaTeksti = new JLabel();
@@ -176,6 +186,8 @@ public class GUI extends JFrame implements ActionListener {
         kehys.setResizable(true);
         kehys.add(keskenNappi);
         kehys.add(aloittamattaNappi);
+        kehys.add(pelattuNappi);
+        kehys.add(pelaan);
         
         //ÄLÄ KOSKE.
         kehys.add(nimiTeksti);
@@ -206,13 +218,17 @@ public class GUI extends JFrame implements ActionListener {
             System.exit(0); 
         }
         
+        
+        
         if(x.getSource()==lisaaPeli) {
-            
             Peli p = new Peli(nimiKentta.getText(), jarjestelmaKentta.getText(), kommenttiKentta.getText());
+            if(onkoArkistossa(p)==false) {
             pelit.add(p);
             peliLista.addElement(p.getNimi());
-            
             tyhjennaKentat();
+            }else if(onkoArkistossa(p)==true) {
+                showMessageDialog(null, "Peli on jo arkistossa!", "Tallentaminen ei onnistu", ERROR_MESSAGE);
+            
         
         //KESKEN
         if(x.getSource()==avaa) {
@@ -226,8 +242,10 @@ public class GUI extends JFrame implements ActionListener {
         if(x.getSource()==uusi) {
            tyhjennaKentat();
            
+        
         }
         }
+            }
         }
     }
     //TOIMII
@@ -249,9 +267,14 @@ public class GUI extends JFrame implements ActionListener {
             jarjestelmaKentta.setText("");
             kommenttiKentta.setText("");
     }
+    public boolean onkoArkistossa(Peli p) {
+             for(Peli onko : pelit) {
+             if(onko.getNimi().equals(p.getNimi())) {
+                 return true;
+        }
+   }           return false;
 }
-
-        
+}        
         
     
         
