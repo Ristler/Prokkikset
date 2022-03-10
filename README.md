@@ -1,4 +1,4 @@
 # Prokkikset
 Java ohjelmia
 
-1. Peliarkisto (Kesken) -> 9.3 plääni, lisää "Scrollable" JPanel JListaan.
+1. Peliarkisto (Kesken) -> 10.3 Koodin putsailua ja menun korjaamista. 
