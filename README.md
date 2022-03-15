@@ -1,7 +1,6 @@
 # Prokkikset
 Java ohjelmia
 
-1. Peliarkisto (Kesken) -> 10.3 Koodin putsailua ja menun korjaamista. Poista toiminta toimii (Tila ja arviointi puuttuu)
-2.                          Koodattiin avaa ja tallennus ominaisuus mutta vaatii työstämistä, toimii about 30%
-
+1. Peliarkisto (Kesken) -> 16.3 Avaa ja tallenus toimii, kaikki toimii paitsi tila ja arviointi nappulat. Ohjelma valmis noin 85%.
+2.  ---> 16.3 päivän tavoite.. Koodaa tila ja arviointi napit toimimaan ja tallentamaan tiedostoon.
 
